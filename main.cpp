@@ -4,7 +4,6 @@
 
 using namespace std;
 
-// This is global variable, do not modify
 #define MAX_STUDENTS 5
 
 struct Student {
@@ -13,9 +12,6 @@ struct Student {
 	float studentGrades;
 };
 
-/*!
-* Function Prototypes
-*/
 void printMenu();
 void highestGrade(Student students[], int count);
 void lowestGrade(Student students[], int count);
@@ -25,30 +21,24 @@ void printStudentName(Student students[], int count);
 
 int main() {
 	Student students[MAX_STUDENTS];
-	int count = 0;  // this keeps track of the students that are in the class
-	int choice;     // user input
+	int count = 0;
+	int choice;
 
-	/*!
-	* Add the students here!
-	*/
-	//----------------------------------------------------------------------------------------
+	// ---------------- Add 5 students ----------------
+	students[0] = { 1001, "Alice", 92.5 };
+	students[1] = { 1002, "Bob", 85.0 };
+	students[2] = { 1003, "Charlie", 78.5 };
+	students[3] = { 1004, "Diana", 88.0 };
+	students[4] = { 1005, "Ethan", 95.0 };
 
+	count = 5;
+	// ------------------------------------------------
 
-
-
-
-
-
-
-
-	//----------------------------------------------------------------------------------------
-
-	// Complete the menu with the associated function
 	do {
 		printMenu();
 		cout << "Enter your choice: ";
 		cin >> choice;
-		cin.ignore();  // we add this to consume the leftover newline
+		cin.ignore();
 
 		switch (choice) {
 		case 1:
@@ -87,36 +77,81 @@ void printMenu() {
 	cout << "6. Exit\n";
 }
 
-/* TODO: Implement these functions */
-
-// Remeber, if you pass an array into a function, it is a pass by reference!
-// Because arrays decay to pointers, so you are getting a pointer to the first element
-// which allows you to modify the data. 
-
-void highestGrade(Student students[], int count)
-{
-	// TODO: Print out all the highest grade in the array
-
-	// Here is a simple check to ensure your code does not break
+void highestGrade(Student students[], int count) {
 	if (count == 0) {
 		cout << "No students in the record.\n";
 		return;
 	}
-}
-void lowestGrade(Student students[], int count)
-{
-	// TODO: Print out all the lowest grade in the array
+
+	float highest = students[0].studentGrades;
+	int index = 0;
+
+	for (int i = 1; i < count; i++) {
+		if (students[i].studentGrades > highest) {
+			highest = students[i].studentGrades;
+			index = i;
+		}
+	}
+
+	cout << "Highest Grade: " << students[index].studentGrades
+		<< " (" << students[index].studentName << ")\n";
 }
 
-void averageGrade(Student students[], int count)
-{
-	// TODO: Print out the average grade of the students
+void lowestGrade(Student students[], int count) {
+	if (count == 0) {
+		cout << "No students in the record.\n";
+		return;
+	}
+
+	float lowest = students[0].studentGrades;
+	int index = 0;
+
+	for (int i = 1; i < count; i++) {
+		if (students[i].studentGrades < lowest) {
+			lowest = students[i].studentGrades;
+			index = i;
+		}
+	}
+
+	cout << "Lowest Grade: " << students[index].studentGrades
+		<< " (" << students[index].studentName << ")\n";
 }
-void printStudentId(Student students[], int count)
-{
-	// TODO: Print out all the students id in the array
+
+void averageGrade(Student students[], int count) {
+	if (count == 0) {
+		cout << "No students in the record.\n";
+		return;
+	}
+
+	float sum = 0;
+	for (int i = 0; i < count; i++) {
+		sum += students[i].studentGrades;
+	}
+
+	cout << fixed << setprecision(2);
+	cout << "Average Grade: " << sum / count << endl;
 }
-void printStudentName(Student students[], int count)
-{
-	// TODO: Print out all the students name in the array
+
+void printStudentId(Student students[], int count) {
+	if (count == 0) {
+		cout << "No students in the record.\n";
+		return;
+	}
+
+	cout << "Student IDs:\n";
+	for (int i = 0; i < count; i++) {
+		cout << students[i].studentId << endl;
+	}
+}
+
+void printStudentName(Student students[], int count) {
+	if (count == 0) {
+		cout << "No students in the record.\n";
+		return;
+	}
+
+	cout << "Student Names:\n";
+	for (int i = 0; i < count; i++) {
+		cout << students[i].studentName << endl;
+	}
 }
